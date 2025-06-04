@@ -1,74 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>File Location Lookup</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f7f9fc;
-            display: flex;
-            justify-content: center;
-            padding: 40px;
-        }
-        .container {
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-        input {
-            padding: 10px;
-            width: 80%;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #result {
-            margin-top: 20px;
-            font-size: 16px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Riopelle File Lookup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f6f6f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .logo {
+      max-width: 260px;
+      margin-bottom: 25px;
+    }
+
+    h2 {
+      color: #163965;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 80%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #a15a1c;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #8a4c17;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 16px;
+      padding: 15px;
+      background-color: #f1f5fb;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h2>File Location Lookup</h2>
-        <input type="text" id="fileNumber" placeholder="Enter File Number">
-        <br>
-        <button onclick="lookupFile()">Search</button>
-        <div id="result"></div>
-    </div>
+  <div class="container">
+    <img src="logo.png" alt="Riopelle Group" class="logo" />
+    <h2>File Location Lookup</h2>
+    <input type="text" id="fileNumber" placeholder="Enter File Number" />
+    <br />
+    <button onclick="lookupFile()">Search</button>
+    <div id="result" class="result" style="display: none;"></div>
+  </div>
 
-    <script>
-        let data;
-        fetch('file_locations.json')
-            .then(response => response.json())
-            .then(json => { data = json; })
-            .catch(err => console.error('Error loading data:', err));
+  <script>
+    let data;
+    fetch('./file_locations.json')
+      .then(response => response.json())
+      .then(json => { data = json; })
+      .catch(err => console.error('Error loading file data:', err));
 
-        function lookupFile() {
-            const fileNum = document.getElementById('fileNumber').value.trim();
-            const resultDiv = document.getElementById('result');
-            if (data[fileNum]) {
-                resultDiv.innerHTML = `<strong>Room:</strong> ${data[fileNum].room}<br><strong>Location:</strong> ${data[fileNum].location}`;
-            } else {
-                resultDiv.innerHTML = "File not found.";
-            }
-        }
-    </script>
+    function lookupFile() {
+      const fileNum = document.getElementById('fileNumber').value.trim();
+      const resultDiv = document.getElementById('result');
+      if (data[fileNum]) {
+        resultDiv.innerHTML = `<strong>Room:</strong> ${data[fileNum].room}<br><strong>Location:</strong> ${data[fileNum].location}`;
+        resultDiv.style.display = 'block';
+      } else {
+        resultDiv.innerHTML = 'File not found. Please check the number and try again.';
+        resultDiv.style.display = 'block';
+      }
+    }
+  </script>
 </body>
 </html>
