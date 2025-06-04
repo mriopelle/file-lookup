@@ -1,0 +1,22 @@
+{
+    "12345": {
+        "room": "A",
+        "location": "Left shelf, top row"
+    },
+    "23456": {
+        "room": "B",
+        "location": "Filing cabinet 2, drawer 3"
+    },
+    "34567": {
+        "room": "A",
+        "location": "Bottom shelf, right side"
+    },
+    "45678": {
+        "room": "C",
+        "location": "Cabinet 1, middle drawer"
+    },
+    "56789": {
+        "room": "B",
+        "location": "Shelf 4, middle section"
+    }
+}

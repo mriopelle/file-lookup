@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File Location Lookup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f9fc;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+        }
+        .container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        input {
+            padding: 10px;
+            width: 80%;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>File Location Lookup</h2>
+        <input type="text" id="fileNumber" placeholder="Enter File Number">
+        <br>
+        <button onclick="lookupFile()">Search</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        let data;
+        fetch('file_locations.json')
+            .then(response => response.json())
+            .then(json => { data = json; })
+            .catch(err => console.error('Error loading data:', err));
+
+        function lookupFile() {
+            const fileNum = document.getElementById('fileNumber').value.trim();
+            const resultDiv = document.getElementById('result');
+            if (data[fileNum]) {
+                resultDiv.innerHTML = `<strong>Room:</strong> ${data[fileNum].room}<br><strong>Location:</strong> ${data[fileNum].location}`;
+            } else {
+                resultDiv.innerHTML = "File not found.";
+            }
+        }
+    </script>
+</body>
+</html>
